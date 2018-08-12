@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+	<h1>ユーザ検索</h1>
+	<input type="text" th:value="${form.userId}" />
+	<p>--------------</p>
+	<ul th:each="user : ${form.searchList}">
+		<li><span th:text="| ${user.userId} : ${user.name} |"></span></li>
+	</ul>
+</body>
+</html>
