@@ -25,8 +25,13 @@ public class UserSearchController {
 		return new UserSearchForm();
 	}
 
+
+	@RequestMapping("/userSearchInit")
+	public String init() {
+		return PAGE;
+	}
 	@RequestMapping("/userSearch")
-	public String init(@ModelAttribute("form") UserSearchForm form, Model model) {
+	public String search(@ModelAttribute("form") UserSearchForm form, Model model) {
 		form.setUserId("666");
 
 		List<UserDto> list = service.search(new UserDto());
@@ -42,4 +47,6 @@ public class UserSearchController {
 		model.addAttribute("form", form);
 		return PAGE;
 	}
+
+
 }

@@ -4,3 +4,7 @@ spring:
     username: dev
     password: Dev69
     driver-class-name: com.mysql.jdbc.Driver
+  thymeleaf:
+    mode: HTML
+  jpa:
+    show-sql: true
