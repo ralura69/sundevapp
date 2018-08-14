@@ -11,27 +11,26 @@
 		<div class="row">
 			<div class="col-1"></div>
 			<div class="col-10">
-				<h3 class="pb-sm-2">ユーザ検索</h3>
+				<h3 class="pb-sm-2">ユーザー検索</h3>
 				<form action="/userSearch" method="post">
 					<div class="form-group row">
 						<label for="inputEmail" class="col-sm-2 col-form-label">ユーザーID</label>
 						<div class="col-sm-2">
-							<input type="email" class="form-control" id="inputEmail"
-								placeholder="ID">
+							<input type="text" name="userId" th:value="${form.userId}" class="form-control">
 						</div>
 					</div>
 					<div class="form-group row">
 						<label for="inputEmail" class="col-sm-2 col-form-label">名前</label>
 						<div class="col-sm-4">
-							<input type="email" class="form-control" id="inputEmail"
-								placeholder="NAME">
+							<input type="text" name="name" th:value="${form.name}" class="form-control">
 						</div>
 					</div>
 					<div class="form-group row">
 						<div class="col-sm-2"></div>
 						<div class="col-sm-4">
-							<button class="btn btn-secondary">検索</button>
-							<a href="/userSearchInit" class="btn page-link text-dark d-inline-block">戻る</a>
+							<button class="btn btn-outline-info">検索</button>
+							<a href="#" class="btn btn-outline-success">新規作成</a>
+							<a href="/userSearch" class="btn btn-outline-secondary">戻る</a>
 						</div>
 					</div>
 
@@ -39,17 +38,21 @@
 						<h3 class="pb-sm-2">検索結果</h3>
 						<table class="table table-striped">
 							<thead>
-								<tr class="table-light">
-									<th>ID</th>
-									<th>NAME</th>
-									<th>BIRTH</th>
+								<tr class="table-light row">
+									<th class="col-sm-2">ID</th>
+									<th class="col-sm-4">NAME</th>
+									<th class="col-sm-3">BIRTH</th>
+									<th class="col-sm-1"></th>
+									<th class="col-sm-2"></th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="user : ${form.searchList}">
-									<td th:text="${user.userId}"></td>
-									<td th:text="${user.name}"></td>
-									<td th:text="${user.birth}"></td>
+								<tr class="row" th:each="user : ${form.searchList}">
+									<td class="col-sm-2" th:text="${user.userId}"></td>
+									<td class="col-sm-4" th:text="${user.name}"></td>
+									<td class="col-sm-3" th:text="${user.birth}"></td>
+									<td class="col-sm-1"><button class="btn btn-outline-warning">編集</button></td>
+									<td class="col-sm-2"><button class="btn btn-outline-danger">編集</button></td>
 								</tr>
 							</tbody>
 						</table>

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class UserDto implements Serializable{
+public class UserDto implements Serializable {
 
 	private String userId;
 	private String name;
