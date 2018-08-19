@@ -12,5 +12,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer> {
 	List<UserEntity> findByNameLike(String name);
 	UserEntity findFirstByUserIdIsNotNullOrderByUserIdDesc();
 	void deleteByUserId(String id);
+	UserEntity findByUserIdAndPassword(String userId, String password);
 
 }

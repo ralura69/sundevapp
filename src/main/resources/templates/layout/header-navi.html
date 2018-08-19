@@ -6,7 +6,15 @@
 <body>
 	<th:block th:fragment="header-navi">
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<a class="navbar-brand" href="#">SunDevApp</a>
+			<div class="col-sm-6">
+				<a class="navbar-brand" href="#">SunDevApp</a>
+			</div>
+			<div class="col-sm-4 text-right">
+				<span th:inline="text">ログイン：[[${loginUserInfo.name}]]さん</span>
+			</div>
+			<div class="col-sm-2 text-right">
+				<a href="/logout">ログアウト</a>
+			</div>
 		</nav>
 	</th:block>
 </body>

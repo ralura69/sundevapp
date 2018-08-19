@@ -18,13 +18,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import jp.sundevapp.base.BaseController;
 import jp.sundevapp.dto.UserDto;
 import jp.sundevapp.form.UserRegisterForm;
 import jp.sundevapp.service.PrefService;
 import jp.sundevapp.service.UserService;
 
 @Controller
-public class UserRegisterController {
+public class UserRegisterController extends BaseController{
 
 	@Autowired
 	private UserService service;
@@ -70,6 +71,10 @@ public class UserRegisterController {
 		form.setInsFlg(resultDto.getInsFlg() ? "1" : "2");
 
 		redirectAttr.addFlashAttribute("form", form);
+
+		// RegUserId = LoginUser
+		if (getLoginUserInfo().getUserId().equals(dto.getUserId()))
+			getLoginUserInfo().setLoginUserInfo(resultDto);
 		return "redirect:/userRegisterComplete";
 	}
 

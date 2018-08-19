@@ -85,9 +85,11 @@
 									<label class="col-sm-4 col-form-label">パスワード</label>
 									<div class="col-sm-8">
 										<div class="form-check" th:if="${form.edit}">
-											<input class="form-check-input passwordFlg" type="checkbox"
-												th:field="${form.passwordFlg}" th:name="passwordFlg"
-												th:id="passwordFlg"> <label class="form-check-label">パスワードを変更する</label>
+											<label class="form-check-label">
+												<input class="form-check-input passwordFlg" type="checkbox"
+													th:field="${form.passwordFlg}" th:name="passwordFlg"
+													th:id="passwordFlg"> パスワードを変更する
+											</label>
 										</div>
 										<div class="form-check" th:unless="${form.edit}">
 											<input style="display: none;" class="form-check-input"
