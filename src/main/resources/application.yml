@@ -8,3 +8,5 @@ spring:
     mode: HTML
   jpa:
     show-sql: true
+  messages:
+    basename: messages

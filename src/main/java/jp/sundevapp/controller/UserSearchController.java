@@ -17,10 +17,10 @@ import jp.sundevapp.service.UserService;
 @Controller
 public class UserSearchController {
 
-	private final String  PAGE = "page/userSearch";
-
 	@Autowired
 	private UserService service;
+
+	private final String  PAGE = "page/userSearch";
 
 	@ModelAttribute("form")
 	private UserSearchForm initForm() {

@@ -6,14 +6,18 @@ import java.time.LocalDateTime;
 
 public class UserDto implements Serializable {
 
+	private final static long serialVersionUID = 1L;
+
 	private String userId;
 	private String name;
 	private LocalDate birth;
 	private Integer age;
 	private String sex;
 	private String nativePref;
+	private String password;
 	private LocalDateTime createDate;
 	private LocalDateTime updateDate;
+	private Boolean insFlg = false;
 
 	public String getUserId() {
 		return userId;
@@ -51,6 +55,12 @@ public class UserDto implements Serializable {
 	public void setNativePref(String nativePref) {
 		this.nativePref = nativePref;
 	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	public LocalDateTime getCreateDate() {
 		return createDate;
 	}
@@ -62,6 +72,12 @@ public class UserDto implements Serializable {
 	}
 	public void setUpdateDate(LocalDateTime updateDate) {
 		this.updateDate = updateDate;
+	}
+	public Boolean getInsFlg() {
+		return insFlg;
+	}
+	public void setInsFlg(Boolean insFlg) {
+		this.insFlg = insFlg;
 	}
 
 }

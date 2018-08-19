@@ -12,54 +12,87 @@
 			<div class="col-1"></div>
 			<div class="col-10">
 				<h3 class="pb-sm-2">ユーザー検索</h3>
-				<form action="/userSearch" method="post">
-					<div class="form-group row">
-						<label for="inputEmail" class="col-sm-2 col-form-label">ユーザーID</label>
-						<div class="col-sm-2">
-							<input type="text" name="userId" th:value="${form.userId}" class="form-control">
+				<th:block th:if="${deleteComplete}">
+					<div class="card border-danger mb-12 mb-sm-4">
+						<div class="card-body text-danger">
+							<p class="card-text" th:inline= "text">ユーザーを削除しました。　[ユーザーID：[[${deleteUserId}]]]</p>
 						</div>
 					</div>
-					<div class="form-group row">
-						<label for="inputEmail" class="col-sm-2 col-form-label">名前</label>
-						<div class="col-sm-4">
-							<input type="text" name="name" th:value="${form.name}" class="form-control">
-						</div>
+				</th:block>
+				<div class="card">
+					<div class="card-body">
+						<form action="/userSearch" method="post">
+							<div class="form-group row">
+								<label class="col-sm-4 col-form-label">ユーザーID</label>
+								<div class="col-sm-4">
+									<input type="text" th:field="*{form.userId}" class="form-control">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-4 col-form-label">名前</label>
+								<div class="col-sm-8">
+									<input type="text" th:field="*{form.name}" class="form-control">
+								</div>
+							</div>
+							<div class="form-group row">
+								<div class="col-sm-4"></div>
+								<div class="col-sm-8">
+									<button class="btn btn-primary">検索</button>
+									<a href="/userRegister" class="btn btn-warning">新規作成</a>
+									<a href="/userSearch" class="btn btn-outline-secondary">クリア</a>
+								</div>
+							</div>
+						</form>
 					</div>
-					<div class="form-group row">
-						<div class="col-sm-2"></div>
-						<div class="col-sm-4">
-							<button class="btn btn-outline-info">検索</button>
-							<a href="#" class="btn btn-outline-success">新規作成</a>
-							<a href="/userSearch" class="btn btn-outline-secondary">戻る</a>
-						</div>
-					</div>
-
-					<th:block th:if="${form.searchList.size() > 0}">
-						<h3 class="pb-sm-2">検索結果</h3>
-						<table class="table table-striped">
-							<thead>
-								<tr class="table-light row">
-									<th class="col-sm-2">ID</th>
-									<th class="col-sm-4">NAME</th>
-									<th class="col-sm-3">BIRTH</th>
-									<th class="col-sm-1"></th>
-									<th class="col-sm-2"></th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr class="row" th:each="user : ${form.searchList}">
-									<td class="col-sm-2" th:text="${user.userId}"></td>
-									<td class="col-sm-4" th:text="${user.name}"></td>
-									<td class="col-sm-3" th:text="${user.birth}"></td>
-									<td class="col-sm-1"><button class="btn btn-outline-warning">編集</button></td>
-									<td class="col-sm-2"><button class="btn btn-outline-danger">編集</button></td>
-								</tr>
-							</tbody>
-						</table>
-					</th:block>
-				</form>
+				</div>
+				<th:block th:if="${form.searchList.size() > 0}">
+					<h3 class="mt-sm-4 pb-sm-2">検索結果</h3>
+					<table class="table table-striped">
+						<thead>
+							<tr class="table-light row">
+								<th class="col-sm-1">ID</th>
+								<th class="col-sm-3">NAME</th>
+								<th class="col-sm-3">BIRTH</th>
+								<th class="col-sm-2">AGE</th>
+								<th class="col-sm-1"></th>
+								<th class="col-sm-2"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="row" th:each="user : ${form.searchList}">
+								<td class="col-sm-1" th:text="${user.userId}"></td>
+								<td class="col-sm-3" th:text="${user.name}"></td>
+								<td class="col-sm-3" th:text="${user.birth}"></td>
+								<td class="col-sm-2" th:text="${user.age}"></td>
+								<td class="col-sm-1">
+									<a class="btn btn-info btn-sm" th:href="@{/userRegister(userId=${user.userId})}">編集</a>
+								</td>
+								<td class="col-sm-2">
+									<button class="btn btn-danger btn-sm searchDeleteBtn" th:id="${user.userId}">削除</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<form id="formDelete" action="/userDelete" method="post">
+						<input type="hidden" name="userId" id="searchDeleteUserId">
+					</form>
+				</th:block>
 			</div>
 			<div class="col-1"></div>
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-body">
+							<p>ユーザーを削除します。よろしいですか？</p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger deleteSubmit">はい</button>
+							<button class="btn btn-outline-secondary" data-dismiss="modal">いいえ</button>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>

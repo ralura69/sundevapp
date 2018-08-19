@@ -12,6 +12,7 @@ import javax.persistence.Table;
 @Entity
 public class UserEntity implements Serializable{
 
+	private static final long serialVersionUID = 1L;
 	@Id
 	private String userId;
 	private String name;
@@ -19,6 +20,7 @@ public class UserEntity implements Serializable{
 	private Integer age;
 	private String sex;
 	private String nativePref;
+	private String password;
 	private LocalDateTime createDate;
 	private LocalDateTime updateDate;
 
@@ -57,6 +59,12 @@ public class UserEntity implements Serializable{
 	}
 	public void setNativePref(String nativePref) {
 		this.nativePref = nativePref;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	public LocalDateTime getCreateDate() {
 		return createDate;

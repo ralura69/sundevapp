@@ -1,3 +1,40 @@
 body {
 	font-family: "Helvetica Neue", Helvetica, Arial, "游ゴシック体", "Yu Gothic", YuGothic, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
 }
+.card {
+	width: 80%;
+}
+.nativePref {
+	margin-left: 15px;
+}
+.age-divspan {
+	padding-left: 0;
+}
+.area-show {
+	display: block;
+    animation: show 1s linear 0s;
+}
+.password-area {
+	display: none;
+}
+.password-area.show {
+    display: block;
+    animation: show 0.15s linear 0s;
+}
+@keyframes show{
+	from{
+		opacity: 0;
+	}
+	to{
+		opacity: 1;
+	}
+}
+
+input.fieldError {
+	background-color: #FCFAB7;
+	border: 3px solid #FD4039;
+}
+span.fieldError {
+	color: #FD4039;
+	font-size: 0.8rem;
+}

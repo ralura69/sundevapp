@@ -8,6 +8,8 @@ import jp.sundevapp.dto.UserDto;
 
 public class UserSearchForm implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+
 	private String userId;
 	private String name;
 	private List<UserDto> searchList = new ArrayList<>();

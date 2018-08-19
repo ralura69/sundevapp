@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<th:block th:replace="layout/static-include :: static-include">
+</head>
+<body>
+	<th:block th:replace="layout/header-navi :: header-navi"></th:block>
+
+	<div class="container mt-sm-2 mb-sm-4">
+		<div class="row">
+			<div class="col-1"></div>
+			<div class="col-10">
+				<h3 class="pb-sm-2" th:inline="text">ユーザー[[${form.edit}?更新:登録]]</h3>
+				<th:block th:if="${complete}">
+					<div class="card border-success mb-12 mb-sm-4">
+						<div class="card-body text-success">
+							<p class="card-text" th:text="${form.completeMessage}"></p>
+						</div>
+					</div>
+				</th:block>
+				<div class="card">
+					<div class="card-body">
+						<form action="/userRegister" method="post">
+							<div class="form-group row">
+								<label class="col-sm-4 col-form-label">ユーザーID</label>
+								<div class="col-sm-4" th:if="${form.edit}">
+									<input type="text" th:field="*{form.userId}"
+										class="form-control" readonly="readonly">
+								</div>
+								<div class="col-sm-4" th:unless="${form.edit}">
+									<label class="col-form-label">自動採番</label>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-4 col-form-label">名前</label>
+								<div class="col-sm-8">
+									<input type="text" th:field="*{form.name}" class="form-control"
+										th:errorclass="fieldError" th:disabled="${complete}">
+									<span th:errors="*{form.name}" th:errorclass="fieldError"></span>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-4 col-form-label">生年月日</label>
+								<div class="col-sm-6">
+									<input type="date" th:field="*{form.birth}"
+										class="form-control" th:disabled="${complete}">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-4 col-form-label">年齢</label>
+								<div class="col-2">
+									<input type="text" th:field="*{form.age}" class="form-control"
+										readonly="readonly">
+								</div>
+								<div class="col-sm-1 age-divspan">
+									<label class="col-form-label">歳</label>
+								</div>
+							</div>
+							<fieldset class="form-group">
+								<div class="row">
+									<label class="col-form-label col-sm-4">性別</label>
+									<div class="col-sm-8">
+										<div class="form-check form-check-inline"
+											th:each="radio : ${form.sexRadio}">
+											<input type="radio" class="form-check-input"
+												th:value="${radio.key}" th:field="*{form.sex}"
+												th:disabled="${complete}"> <label
+												class="form-check-label" for="sex${radio.key}"
+												th:text="${radio.value}"></label>
+										</div>
+									</div>
+								</div>
+							</fieldset>
+							<div class="form-group row">
+								<label class="col-sm-4 col-form-label">出身地</label> <select
+									class="nativePref form-control col-sm-3" name="nativePref"
+									th:field="*{form.nativePref}" th:disabled="${complete}">
+									<option th:each="prefList : ${form.prefList}"
+										th:value="${prefList.prefId}" th:text="${prefList.name}"></option>
+								</select>
+							</div>
+							<th:block th:if="!${complete}">
+								<div class="form-group row">
+									<label class="col-sm-4 col-form-label">パスワード</label>
+									<div class="col-sm-8">
+										<div class="form-check" th:if="${form.edit}">
+											<input class="form-check-input passwordFlg" type="checkbox"
+												th:field="${form.passwordFlg}" th:name="passwordFlg"
+												th:id="passwordFlg"> <label class="form-check-label">パスワードを変更する</label>
+										</div>
+										<div class="form-check" th:unless="${form.edit}">
+											<input style="display: none;" class="form-check-input"
+												type="checkbox" th:name="passwordFlg" th:id="passwordFlg"
+												checked="checked">
+										</div>
+									</div>
+								</div>
+								<div class="card password-area">
+									<div class="card-body">
+										<div class="form-group row">
+											<label class="col-sm-6 col-form-label">新しいパスワード</label>
+											<div class="col-sm-6">
+												<input type="password" th:field="*{form.newPassword}"
+													class="form-control" th:errorclass="fieldError"> <span
+													th:errors="*{form.newPassword}" th:errorclass="fieldError"></span>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-6 col-form-label">新しいパスワード(再入力)</label>
+											<div class="col-sm-6">
+												<input type="password" th:field="*{form.newPasswordRe}"
+													class="form-control" th:errorclass="fieldError"> <span
+													th:errors="*{form.newPasswordRe}"
+													th:errorclass="fieldError"></span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</th:block>
+							<div class="form-group row mt-sm-4">
+								<label class="col-sm-4 col-form-label"></label>
+								<div class="col-sm-8">
+									<th:block th:if="!${complete}">
+										<button class="btn btn-info" th:inline="text"
+											th:if="${form.edit}">更新</button>
+										<button class="btn btn-warning" th:inline="text"
+											th:unless="${form.edit}">登録</button>
+										<button class="btn btn-danger deleteBtn" th:inline="text"
+											th:if="${form.edit}">削除</button>
+
+									</th:block>
+									<a href="/userSearch" class="btn btn-outline-secondary">戻る</a>
+								</div>
+							</div>
+						</form>
+						<form id="formDelete" th:if="${form.edit}" action="/userDelete"
+							method="post">
+							<input type="hidden" th:value="${form.userId}" name="userId">
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="col-1"></div>
+
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-body">
+							<p>ユーザーを削除します。よろしいですか？</p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger deleteSubmit">はい</button>
+							<button class="btn btn-outline-secondary" data-dismiss="modal">いいえ</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
