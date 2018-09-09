@@ -67,9 +67,7 @@ public class UserServiceImpl implements UserService {
 			if (StringUtils.isEmpty(dto.getPassword()))
 				dto.setPassword(bef.getPassword());
 		}
-		if (StringUtils.isEmpty(dto.getPassword())) {
 
-		}
 		dto.setUpdateDate(now);
 
 		UserEntity reg = new UserEntity();
